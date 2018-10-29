@@ -8,4 +8,50 @@ html, body {
     align-items: center;
     justify-content: center;
     background: url('../img/star-wars-bg.jpeg');
+    position: relative;
+}
+
+.loader {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 1000;
+
+    .dot {
+        margin: 0 20px;
+        width: 50px;
+        height: 50px;
+        background: #007bff;
+        border-radius: 50%;
+        animation: show-hide 1s ease infinite;
+
+        &:nth-child(2) {
+            animation-delay: 0.3s;
+        } 
+        
+        &:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes show-hide {
+            0% {
+                transform: scale(0);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+    }
+}
+
+.loader-on {
+    display: flex;
+    justify-content: center;
+    margin-top: 200px;
+}
+
+.loader-off {
+    display: none;
 }

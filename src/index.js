@@ -4,10 +4,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './scss/style.scss';
 import { showResults } from './js/search-results';
+import { loaderToggle } from './js/loader'
 
-const searchFormEl = document.querySelector('#search-form')
-const searchInputEl = document.querySelector('#search-input')
-const searchOptionEl = document.querySelector('#search-option')
+const searchFormEl = document.querySelector('#search-form') // form
+const searchInputEl = document.querySelector('#search-input') // input
+const searchOptionEl = document.querySelector('#search-option') // option
 
 const apiBaseURL = 'https://swapi.co/api/';
 let searchOption = 'films';
@@ -22,12 +23,16 @@ searchFormEl.addEventListener('submit', function(e) {
   getDataFromApi(inputValue, searchOption);
 });
 
-
 const getDataFromApi = (value, option) => {
+  loaderToggle(); // turn on loader
   const apiURL = `${apiBaseURL}${option}/?search=${value}`
 
   axios.get(apiURL)
-    .then((response) => response.data)
+    .then((response) => {
+      loaderToggle(); // turn off loader
+      return response.data;
+    })
     .then((data) => showResults(data.results, searchOption))
     .catch((error) => console.log(error));
 }
+
